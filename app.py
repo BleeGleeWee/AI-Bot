@@ -5,8 +5,10 @@ from langchain_openai import OpenAI
 from langchain.chains import create_retrieval_chain
 from langchain.chains.combine_documents import create_stuff_documents_chain
 from langchain_core.prompts import ChatPromptTemplate
+from langchain_groq import ChatGroq
 from dotenv import load_dotenv
 from src.prompt import *
+from groq import Groq
 import os
 
 app = Flask(__name__)
@@ -33,7 +35,22 @@ docsearch = PineconeVectorStore.from_existing_index(
 retriever = docsearch.as_retriever(search_type="similarity", search_kwargs={"k":3})
 
 
-llm = OpenAI(temperature=0.4, max_tokens=500)
+client = Groq(
+    api_key=os.environ.get("GROQ_API_KEY"),
+)
+
+chat_completion = client.chat.completions.create(
+    messages=[
+        {
+            "role": "user",
+            "content": "Explain the importance of fast language models",
+        }
+    ],
+    model="llama-3.3-70b-versatile",
+)
+
+print(chat_completion.choices[0].message.content)
+
 prompt = ChatPromptTemplate.from_messages(
     [
         ("system", system_prompt),
@@ -41,8 +58,10 @@ prompt = ChatPromptTemplate.from_messages(
     ]
 )
 
-question_answer_chain = create_stuff_documents_chain(llm, prompt)
-rag_chain = create_retrieval_chain(retriever, question_answer_chain)
+llm = ChatGroq(model_name="llama-3.3-70b-versatile", temperature=0.7)
+
+chain = prompt | llm
+
 
 
 @app.route("/")
@@ -55,10 +74,13 @@ def chat():
     msg = request.form["msg"]
     input = msg
     print(input)
-    response = rag_chain.invoke({"input": msg})
-    print("Response : ", response["answer"])
-    return str(response["answer"])
-
+    response = chain.invoke({"input": msg, "context": ""})
+    response_terms = set(response.lower().split())
+    retriever_terms = set(retriever.keys())
+    if not response_terms.issubset(retriever_terms):
+        response = "Yeh Meri Expertise Nahi Hai, so I Am Out."
+    print("Response : ", response)
+    return str(response)
 
 
 
