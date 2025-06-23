@@ -1,5 +1,38 @@
 # AI-Bot
 
+An intelligent AI-powered medical chatbot designed to answer health-related queries using uploaded bio-medical encyclopedias and domain-specific knowledge. Built using OpenAI’s GPT, LangChain, Pinecone vector database, and Flask, this bot provides accurate and context-aware responses to user queries.
+
+---
+
+## 🚀 Features
+
+* Natural Language Medical Query Understanding
+* Contextual Response Generation using GPT
+* Document Retrieval with LangChain + Pinecone
+* Dockerized App for Seamless Cloud Deployment
+* Integrated CI/CD with AWS (EC2 + ECR) via GitHub Actions
+
+---
+
+## 🛠 Tech Stack
+
+* **Python**
+* **LangChain**
+* **OpenAI GPT-4**
+* **Pinecone** (Vector DB)
+* **Flask** (Web framework)
+* **Docker**
+* **AWS EC2 & ECR**
+* **GitHub Actions**
+
+
+## 📘 Use Case
+
+Upload bio-medical books and interact with the bot to get accurate medical insights, references, and intelligent answers from trusted medical data.
+
+---
+
+
 # How to run?
 ### STEPS:
 
@@ -47,15 +80,6 @@ Now,
 ```bash
 open up localhost:
 ```
-
-
-### Techstack Used:
-
-- Python
-- LangChain
-- Flask
-- GPT
-- Pinecone
 
 
 # AWS-CICD-Deployment-with-Github-Actions
