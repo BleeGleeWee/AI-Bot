@@ -2,9 +2,9 @@ flask
 gunicorn
 python-dotenv
 pypdf
-langchain
-langchain-community
-langchain-core
+langchain>=0.3.0
+langchain-community>=0.3.0
+langchain-core>=0.3.0
 langchain-groq
 langchain-pinecone
 langchain-huggingface
