@@ -128,7 +128,7 @@ We welcome contributions to improve the **AI Medical Chatbot**! Whether it's fix
 1.  **Fork** the repository.
 2.  **Clone** your forked repo:
     ```bash
-    git clone [https://github.com/YourUsername/AI-Bot.git](https://github.com/YourUsername/AI-Bot.git)
+    git clone https://github.com/BleeGleeWee/AI-Bot.git
     ```
 3.  **Create a new branch** for your feature or fix:
     ```bash
