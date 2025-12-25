@@ -97,9 +97,9 @@ Deployment Steps:
 
 ---
 
+### 📂 Directory Structure
 
-
-📂 Directory Structure
+```text
 AI-Bot/
 ├── Data/                   # PDF files for knowledge base
 ├── src/
@@ -114,6 +114,8 @@ AI-Bot/
 ├── requirements.txt        # Project dependencies
 ├── Procfile                # Deployment command for Render
 └── .env                    # API Secrets (Not committed to Git)
+```
+
 
 ---
 
