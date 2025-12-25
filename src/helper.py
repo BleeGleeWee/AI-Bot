@@ -1,9 +1,36 @@
 from langchain_community.document_loaders import PyPDFLoader, DirectoryLoader
 from langchain_text_splitters import RecursiveCharacterTextSplitter
-from langchain_community.embeddings import HuggingFaceInferenceAPIEmbeddings 
+from langchain_core.embeddings import Embeddings
 import os
+import requests
+import time
 
-# Extract Data From the PDF File
+
+class RobustHFEmbeddings(Embeddings):
+    def __init__(self, api_key, model_name):
+        self.api_url = f"https://api-inference.huggingface.co/models/{model_name}"
+        self.headers = {"Authorization": f"Bearer {api_key}"}
+
+    def embed_documents(self, texts):
+        response = requests.post(
+            self.api_url, 
+            headers=self.headers, 
+            json={"inputs": texts, "options": {"wait_for_model": True}}
+        )
+        result = response.json()
+
+        
+        if isinstance(result, dict) and 'error' in result:
+            print(f"❌ HF API Error: {result}")
+            raise ValueError(f"Hugging Face API Error: {result['error']}")
+            
+        return result
+
+    def embed_query(self, text):
+        result = self.embed_documents([text])
+        return result[0]
+
+
 def load_pdf_file(data):
     loader = DirectoryLoader(data,
                              glob="*.pdf",
@@ -11,16 +38,13 @@ def load_pdf_file(data):
     documents = loader.load()
     return documents
 
-# Split the Data into Text Chunks
 def text_split(extracted_data):
     text_splitter = RecursiveCharacterTextSplitter(chunk_size=500, chunk_overlap=20)
     text_chunks = text_splitter.split_documents(extracted_data)
     return text_chunks
 
-# Download the Embeddings from HuggingFace
 def download_hugging_face_embeddings():
-    # Uses the cloud API (Lightweight) instead of local download (Heavy)
-    embeddings = HuggingFaceInferenceAPIEmbeddings(
+    embeddings = RobustHFEmbeddings(
         api_key=os.environ.get("HUGGINGFACEHUB_API_TOKEN"),
         model_name="sentence-transformers/all-MiniLM-L6-v2"
     )
