@@ -23,7 +23,7 @@ embeddings = download_hugging_face_embeddings()
 
 index_name = "medicalbot"
 
-# Load Existing Index
+
 docsearch = PineconeVectorStore.from_existing_index(
     index_name=index_name,
     embedding=embeddings
@@ -31,9 +31,9 @@ docsearch = PineconeVectorStore.from_existing_index(
 
 retriever = docsearch.as_retriever(search_type="similarity", search_kwargs={"k":3})
 
-llm = ChatGroq(model_name="llama-3.3-70b-versatile", temperature=0.5)
+llm = ChatGroq(model_name="llama-3.3-70b-versatile", temperature=0.1)
 
-# CRITICAL FIX: Proper RAG Prompt
+
 prompt = ChatPromptTemplate.from_messages(
     [
         ("system", system_prompt),
@@ -41,7 +41,6 @@ prompt = ChatPromptTemplate.from_messages(
     ]
 )
 
-# CRITICAL FIX: Creating the RAG Chain
 question_answer_chain = create_stuff_documents_chain(llm, prompt)
 rag_chain = create_retrieval_chain(retriever, question_answer_chain)
 
@@ -57,7 +56,6 @@ def chat():
     input = msg
     print(input)
 
-    # invoke calls
     response = rag_chain.invoke({"input": msg})
     print("Response : ", response["answer"])
     return str(response["answer"])
