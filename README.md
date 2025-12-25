@@ -24,7 +24,7 @@ An intelligent AI-powered medical chatbot designed to answer health-related quer
 * **Deployment:** Render
 
 ## 📘 Use Case
-Upload bio-medical books (PDFs) and interact with the bot to get accurate medical insights, references, and intelligent answers grounded in trusted data sources rather than generic AI hallucinations.
+Uploaded "Gale Encyclopedia of Medicine" (bio-medical) books (as PDFs) so that users can interact with the bot to get accurate medical insights, references, and intelligent answers grounded in trusted data sources rather than generic AI hallucinations.
 
 ---
 
@@ -120,3 +120,34 @@ AI-Bot/
 
 ---
 
+## 🤝 Contribution
+
+We welcome contributions to improve the **AI Medical Chatbot**! Whether it's fixing bugs, improving documentation, or adding new features, your help is appreciated.
+
+**Steps to Contribute:**
+1.  **Fork** the repository.
+2.  **Clone** your forked repo:
+    ```bash
+    git clone [https://github.com/YourUsername/AI-Bot.git](https://github.com/YourUsername/AI-Bot.git)
+    ```
+3.  **Create a new branch** for your feature or fix:
+    ```bash
+    git checkout -b feature-name
+    ```
+4.  **Make your changes** and commit them:
+    ```bash
+    git commit -m "Added a cool new feature"
+    ```
+5.  **Push** to your fork:
+    ```bash
+    git push origin feature-name
+    ```
+6.  **Open a Pull Request (PR)** on the main repository.
+
+---
+
+## ⭐ Support
+
+If you found this project helpful or interesting, please consider giving it a **Star**! 🌟, helps others discover this project and motivates me to keep improving it.
+
+---
