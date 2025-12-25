@@ -16,8 +16,13 @@ def text_split(extracted_data):
     text_chunks = text_splitter.split_documents(extracted_data)
     return text_chunks
 
-#Download the Embeddings from HuggingFace
+from langchain_community.embeddings import HuggingFaceInferenceAPIEmbeddings
+import os
+
 def download_hugging_face_embeddings():
-    # This model returns 384 dimensions
-    embeddings = HuggingFaceEmbeddings(model_name="sentence-transformers/all-MiniLM-L6-v2")
+    # This uses the HF API in the cloud. No local download. No memory crash.
+    embeddings = HuggingFaceInferenceAPIEmbeddings(
+        api_key=os.environ.get("HUGGINGFACEHUB_API_TOKEN"),
+        model_name="sentence-transformers/all-MiniLM-L6-v2"
+    )
     return embeddings
