@@ -8,18 +8,21 @@ import time
 
 class RobustHFEmbeddings(Embeddings):
     def __init__(self, api_key, model_name):
-        self.api_url = f"https://api-inference.huggingface.co/models/{model_name}"
+        self.api_url = f"https://router.huggingface.co/models/{model_name}"
         self.headers = {"Authorization": f"Bearer {api_key}"}
 
     def embed_documents(self, texts):
-        response = requests.post(
-            self.api_url, 
-            headers=self.headers, 
-            json={"inputs": texts, "options": {"wait_for_model": True}}
-        )
-        result = response.json()
+        try:
+            response = requests.post(
+                self.api_url, 
+                headers=self.headers, 
+                json={"inputs": texts, "options": {"wait_for_model": True}}
+            )
+            result = response.json()
+        except Exception as e:
+            raise ValueError(f"Connection Error: {e}")
 
-        
+
         if isinstance(result, dict) and 'error' in result:
             print(f"❌ HF API Error: {result}")
             raise ValueError(f"Hugging Face API Error: {result['error']}")
