@@ -77,8 +77,9 @@ http://localhost:8080
 
 ---
 
-🌐 Deployment (Render)
+## 🌐 Deployment (Render)
 This project is currently deployed on Render as a Web Service.
+
 Deployment Steps:
  * Push to GitHub: Ensure your latest code (with requirements.txt and Procfile) is on GitHub.
  * Create New Web Service: Log in to Render and connect your GitHub repository.
