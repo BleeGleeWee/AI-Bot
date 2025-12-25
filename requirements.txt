@@ -2,6 +2,7 @@ flask
 gunicorn
 python-dotenv
 pypdf
+langchain
 langchain-community
 langchain-core
 langchain-groq
